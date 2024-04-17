@@ -134,45 +134,7 @@ def main():
 
     # Define dataset with cities and corresponding postal codes
     data = pd.read_csv('output.csv')
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="studyjoel#123",
-        database="sales_data_db"
-    )
-    mycursor = mydb.cursor()
-
-    # Create table in MySQL
-    create_table_query = """
-    CREATE TABLE IF NOT EXISTS sales_data (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        city VARCHAR(255),
-        postal_code VARCHAR(255),
-        sub_category VARCHAR(255),
-        product_name VARCHAR(255),
-        quantity INT,
-        discount FLOAT,
-        year INT,
-        month INT,
-        sales DECIMAL(10, 2)
-    )
-    """
-    mycursor.execute(create_table_query)
-
-    # Insert data into MySQL table
-    for index, row in data.iterrows():
-        insert_query = """
-        INSERT INTO sales_data (city, postal_code, sub_category, product_name, quantity, discount, year, month, sales)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """
-        values = (row['City'], row['Postal Code'], row['Sub-Category'], row['Product Name'],
-                  row['Quantity'], row['Discount'], row['Year'], row['Month'], row['Sales'])
-        mycursor.execute(insert_query, values)
-
-    # Commit changes and close connection
-    mydb.commit()
-    mycursor.close()
-    mydb.close()
+    
 
     # Place inputs in the sidebar
     with st.sidebar:
